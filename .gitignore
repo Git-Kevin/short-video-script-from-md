@@ -1,0 +1,17 @@
+# Local environment and secret files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Gitleaks output
+gitleaks-report.*
+*.gitleaks-report.*
+
+# Local tool caches
+.cache/

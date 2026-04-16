@@ -1,0 +1,4 @@
+interface:
+  display_name: "Markdown Short Video"
+  short_description: "Turn Markdown into short-video scripts and narration."
+  default_prompt: "Use $shortvideo-from-md to turn a Markdown file into a short-video script, narration, and storyboard."
