@@ -1,8 +1,13 @@
 # ShortVideo
 
-This repository contains the `shortvideo-from-md` Codex skill plus the repo-level safety checks used to keep the skill clean and portable.
+This repository contains Codex skills for turning Markdown into short-form content assets plus the repo-level safety checks used to keep those skills clean and portable.
 
-The skill turns Markdown content into short-video production packages such as:
+Current skills:
+
+- `shortvideo-from-md`: turn Markdown into short-video production packages
+- `xhs-titles-from-md`: turn Markdown into Xiaohongshu title matrices
+
+The skills can turn Markdown content into assets such as:
 
 - spoken scripts
 - clean narration
@@ -21,13 +26,19 @@ The skill turns Markdown content into short-video production packages such as:
 |-- .githooks/
 |-- scripts/
 `-- skills/
-    `-- shortvideo-from-md/
+    |-- shortvideo-from-md/
+    |   |-- SKILL.md
+    |   |-- agents/openai.yaml
+    |   `-- references/
+    |       |-- examples.md
+    |       |-- output-templates.md
+    |       `-- style-presets.md
+    `-- xhs-titles-from-md/
         |-- SKILL.md
         |-- agents/openai.yaml
         `-- references/
-            |-- examples.md
             |-- output-templates.md
-            `-- style-presets.md
+            `-- title-types.md
 ```
 
 ## Supported Environment
@@ -150,22 +161,26 @@ pre-commit run gitleaks --files $files
 
 ## Skill Usage
 
-The skill source lives in [skills/shortvideo-from-md/SKILL.md](skills/shortvideo-from-md/SKILL.md).
+Each skill source lives under `skills/`.
 
-To make the skill available in your Codex skills directory, copy `skills/shortvideo-from-md` into your local skills home as `shortvideo-from-md`.
+To make a skill available in your Codex skills directory, copy that skill folder into your local skills home using the same folder name.
 
 Typical destination:
 
-- Windows: `%USERPROFILE%\.codex\skills\shortvideo-from-md`
-- macOS / Linux: `$HOME/.codex/skills/shortvideo-from-md`
+- Windows: `%USERPROFILE%\.codex\skills\<skill-name>`
+- macOS / Linux: `$HOME/.codex/skills/<skill-name>`
 
-Once the skill is available to Codex, you can invoke it with prompts like:
+Once a skill is available to Codex, you can invoke it with prompts like:
 
 ```text
 Use $shortvideo-from-md to read README.md and turn it into a short-video script package.
 ```
 
-Core behavior:
+```text
+Use $xhs-titles-from-md to read README.md and generate multiple Xiaohongshu title types.
+```
+
+Core behavior for `shortvideo-from-md`:
 
 - read the full Markdown source before writing
 - compress the source into one strong video angle
@@ -178,6 +193,22 @@ Useful supporting files:
 - [skills/shortvideo-from-md/references/output-templates.md](skills/shortvideo-from-md/references/output-templates.md)
 - [skills/shortvideo-from-md/references/examples.md](skills/shortvideo-from-md/references/examples.md)
 - [skills/shortvideo-from-md/agents/openai.yaml](skills/shortvideo-from-md/agents/openai.yaml)
+
+Core behavior for `xhs-titles-from-md`:
+
+- read the full Markdown source before writing titles
+- extract the strongest click reason from the body content
+- return a balanced mix of 6 Xiaohongshu-native viral title types by default:
+  `emotional-resonance`, `pain-point-tutorial`, `numbered-list`, `curiosity-reversal`, `audience-targeted`, `review-comparison`
+- keep the titles truthful to the source instead of inventing hype
+- prefer the practical formula `target audience + pain-point scene + emotion word or number + solution` when it fits the source
+
+Useful supporting files:
+
+- [skills/xhs-titles-from-md/SKILL.md](skills/xhs-titles-from-md/SKILL.md)
+- [skills/xhs-titles-from-md/references/title-types.md](skills/xhs-titles-from-md/references/title-types.md)
+- [skills/xhs-titles-from-md/references/output-templates.md](skills/xhs-titles-from-md/references/output-templates.md)
+- [skills/xhs-titles-from-md/agents/openai.yaml](skills/xhs-titles-from-md/agents/openai.yaml)
 
 ## Example Prompts
 
@@ -197,6 +228,18 @@ Playful adaptation:
 
 ```text
 Use $shortvideo-from-md to turn the README of a Bazi skill into a Xiaohongshu short video for AI beginners. Make it feel like "I found a weird but fascinating AI project on GitHub". Keep it light and funny, but explain the real workflow clearly. Output the spoken script, clean narration, shot-by-shot storyboard, and subtitle copy.
+```
+
+Title generation:
+
+```text
+Use $xhs-titles-from-md to read docs/post.md and generate 12 Xiaohongshu title options across emotional resonance, pain-point tutorial, numbered list, curiosity reversal, audience-targeted, and review-comparison styles.
+```
+
+Rewrite and optimize:
+
+```text
+Use $xhs-titles-from-md to read README.md, diagnose why the current title is weak, and rewrite it into steady, stronger-click, and brand-safe Xiaohongshu title variants.
 ```
 
 ## Output Shapes

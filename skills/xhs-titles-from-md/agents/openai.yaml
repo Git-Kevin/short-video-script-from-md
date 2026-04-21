@@ -1,0 +1,4 @@
+interface:
+  display_name: "XHS Titles From Markdown"
+  short_description: "Turn Markdown into Xiaohongshu title variants across 6 viral title types."
+  default_prompt: "Use $xhs-titles-from-md to read a Markdown file and generate multiple Xiaohongshu title variants across emotional resonance, pain-point tutorial, numbered list, curiosity reversal, audience-targeted, and review-comparison styles plus the top recommendations."
